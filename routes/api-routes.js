@@ -13,7 +13,6 @@ router.post("/api/workouts", ({ body }, res) => {
 
 router.get("/api/workouts", (req, res) => {
   Workouts.find({})
-    .sort({ date: -1 })
     .then((dbWorkouts) => {
       res.json(dbWorkouts);
     })

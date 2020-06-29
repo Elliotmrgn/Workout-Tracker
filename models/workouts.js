@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+
 const workoutSchema = new Schema(
   {
     day: {
@@ -12,8 +13,7 @@ const workoutSchema = new Schema(
       {
         type: {
           type: String,
-          trim: true,
-          required: "Choose an exercise type.",
+          enum: ["cardio", "resistance"],
         },
         name: {
           type: String,
@@ -22,20 +22,20 @@ const workoutSchema = new Schema(
         },
         duration: {
           type: Number,
-          required: "Choose a workout duration",
+          minimum: 1,
+          required: "Choose a valid workout duration",
         },
         weight: {
-          type: Number,
-          required: "Choose a resistance weight",
+          type: Number
         },
         reps: {
-          type: Number,
+          type: Number
         },
         sets: {
-          type: Number,
+          type: Number
         },
         distance: {
-          type: Number,
+          type: Number
         },
       },
     ],
@@ -46,6 +46,7 @@ const workoutSchema = new Schema(
     },
   }
 );
+
 
 workoutSchema.virtual("totalDuration").get(function () {
   return this.exercises.reduce((total, exercise) => {
